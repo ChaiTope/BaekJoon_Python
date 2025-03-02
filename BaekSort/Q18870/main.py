@@ -1,28 +1,16 @@
 import sys
 
 N = int(input())
-inp = list(map(int, sys.stdin.readline().strip().split()))
+inp = list(map(int, sys.stdin.readline().split()))
 
-out = sorted(inp)
-count = 0
-res = [[] for _ in range(N)]
-for i in range(N-1):
-    if out[i] != out[i+1]:
-        res[i] = count
-        count += 1
-    else:
-        res[i] = count
-if out[N-1] == out[N-2]:
-    res[N-1] = count
-else:
-    res[N-1] = count+1
+# 중복 제거 + 정렬 (O(N log N))
+sorted_unique = sorted(set(inp))
 
-sol = []
+# 리스트 → 딕셔너리 변환 (O(N))
+compression_map = {value: index for index, value in enumerate(sorted_unique)}
 
-for i in range(N):
-    for j in range(N):
-        if inp[i] == out[j]:
-            sol.append(res[j])
-            break
+# 입력 리스트를 압축된 값으로 변환 (O(N))
+sol = [compression_map[num] for num in inp]
 
-sys.stdout.write(" ".join(map(str, sol)))
+# 결과 출력
+sys.stdout.write(" ".join(map(str, sol)) + "\n")
