@@ -1,5 +1,7 @@
-import math
 import sys
+import math
+
+x, y = map(int, sys.stdin.readline().strip().split())
 
 def is_prime(n):
     if n < 2:
@@ -15,15 +17,6 @@ def is_prime(n):
             return False
     return True
 
-N = int(sys.stdin.readline().strip())
-
-prime = []
-
-for j in range(N):
-    M = int(sys.stdin.readline().strip())
-    while not is_prime(M):
-        M += 1
-
-    prime.append(M)
-
-print("\n".join(map(str, prime)))
+for i in range(x, y+1):
+    if is_prime(i):
+        print(i)

@@ -1,5 +1,4 @@
 import math
-import sys
 
 def is_prime(n):
     if n < 2:
@@ -14,16 +13,3 @@ def is_prime(n):
         if n % i == 0 or n % (i + 2) == 0:
             return False
     return True
-
-N = int(sys.stdin.readline().strip())
-
-prime = []
-
-for j in range(N):
-    M = int(sys.stdin.readline().strip())
-    while not is_prime(M):
-        M += 1
-
-    prime.append(M)
-
-print("\n".join(map(str, prime)))
