@@ -74,3 +74,36 @@ $C$의 원소를 차례대로 queuestack에 삽입했을 때의 리턴값을 공
 ## Thinking!!
 아 그니까 a1 a2 a3 a4가 배열에 있고, 새 값 b1 b2 b3이 있다면 a2 a3가 스택이면 1회 실행시 b1 a2 a3 a1 ==> a4 나옴
 2회차에 b2 a2 a3 b1 ==> a1나옴 3회차에 b3 a2 a3 b2 ==> b1나옴 이런식인가?
+
+## 1차 시도
+    import sys
+    from collections import deque
+    
+    N = int(sys.stdin.readline().strip())
+    A = list(map(int, sys.stdin.readline().split()))
+    B = list(map(int, sys.stdin.readline().split()))
+    M = int(sys.stdin.readline().strip())
+    C = list(map(int, sys.stdin.readline().split()))
+    
+    que_count = 0
+    queue_values = deque()
+    for i in range(N):
+        if A[i] == 0:
+            queue_values.append(B[i])
+            que_count += 1
+    
+    
+    result = []
+    
+    if que_count > 0:
+        C = reversed(C)
+    
+    for c in C:
+        if queue_values:
+            result.append(queue_values.pop())
+        else:
+            result.append(c)
+    
+    print(*result)
+    
+## 2차 시도
