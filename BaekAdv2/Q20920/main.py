@@ -13,7 +13,7 @@ for _ in range(N):
 
 counter = Counter(note)
 
-most_common = counter.most_common()
+sorted_words = sorted(counter.items(), key=lambda x: (-x[1], -len(x[0]), x[0]))
 
-for k, v in most_common:
+for k, v in sorted_words:
     print(k)
