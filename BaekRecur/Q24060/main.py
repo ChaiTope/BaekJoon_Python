@@ -9,7 +9,7 @@ def merge_sort(A, p, r):  # A[p ~ r]을 오름차순 정렬한다.
 # A[p~q]와 A[(q+1)~r]을 병합하여 A[p~r]을 오름차순 정렬된 상태로 만든다.
 # A[p~q]와 A[(q+1)~r]은 이미 오름차순으로 정렬되어 있다.
 def merge(A, p, q, r):
-    global cnt, res
+    global count, res
     i = p
     j = q + 1
     tmp = []
@@ -35,8 +35,8 @@ def merge(A, p, q, r):
 
     while i <= r:  # 결과를 A[p~r]에 저장
         A[i] = tmp[t]
-        cnt += 1
-        if cnt == K:
+        count += 1
+        if count == K:
             res = A[i]
             break
         i += 1
@@ -45,7 +45,7 @@ def merge(A, p, q, r):
 
 N, K = map(int, input().split())
 A = list(map(int, input().split()))
-cnt = 0
+count = 0
 res = -1
 merge_sort(A, 0, N - 1)
 print(res)
