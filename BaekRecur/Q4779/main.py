@@ -1,20 +1,20 @@
 import sys
 
-def erase(array):
-    if len(array) == 1:
-        return array
+def split(array, start, end):
+    point = (end - start) // 3
+    if end - start >= 3:
+        for j in range(start + point, start + point*2):
+            array[j] = ' '
+        split(array, start, start + point)
+        split(array, start + point*2, end)
     else:
-        for j in range(len(array)//3-1, len(array)//3*2):
-            array[j] = []
-        return array
-
-def split(array):
-    erase(array)
+        return
 
 for line in sys.stdin:
     N = int(line)
 
-    arr = ["-"]*(N**3)
+    arr1 = ["-"]*(3**N)
 
-    for i in range(N):
-        arr = split(arr)
+    split(arr1, 0, len(arr1))
+
+    print(''.join(arr1))
