@@ -1,27 +1,23 @@
 N = int(input())
 
-sqr = [["*"] * (N//3) for _ in range(N//3)]
+sqr = [["*"] * N for _ in range(N)]
 
-def erase(arr, start, end):
-    if end - start >= 3:
-        val = (end-start)//3
-        for i in range(start+val, start+val*2):
-            for j in range(start+val, start+val*2):
-                arr[i][j] = ' '
-
-        erase(arr, start, start+val)
-        erase(arr, start, start+val*2)
-        erase(arr, start, start+val*3)
-        erase(arr, start+val, start+val*2)
-        erase(arr, start+val, start+val*2)
-        erase(arr, start+val, start+val*3)
-        erase(arr, start+val*2, end-val)
-        erase(arr, start+val*2, end-val*2)
-        erase(arr, start+val*2, end-val*3)
-    else:
+def erase(x, y, size):
+    if size == 1:
         return
 
-erase(sqr, 0, len(sqr))
+    new_size = size // 3
+    for i in range(x + new_size, x + new_size * 2):
+        for j in range(y + new_size, y + new_size * 2):
+            sqr[i][j] = ' '
+
+    for dx in range(3):
+        for dy in range(3):
+            if dx == 1 and dy == 1:
+                continue  # 가운데는 이미 비움
+            erase(x + dx * new_size, y + dy * new_size, new_size)
+
+erase(0, 0, N)
 
 for row in sqr:
     print("".join(row))
