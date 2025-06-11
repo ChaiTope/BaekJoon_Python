@@ -82,3 +82,59 @@ A에서 B로 변환하기 위해 필요한 최소한의 명령어 나열을 출�
 시간이 오래걸려서 시간초과가 나는 것 같다.
 
 리스트 인덱싱으로 처리해야 할 거 같다.
+
+## 그냥 python이라 느렸던것
+
+    from collections import deque
+    import sys
+    
+    input = sys.stdin.readline
+    
+    T = int(input())
+    
+    def D(n):
+        return (n * 2) % 10000
+    
+    def S(n):
+        if n == 0:
+            return 9999
+        else:
+            return n - 1
+    
+    def L(n):
+        return (n % 1000) * 10 + (n // 1000)
+    
+    def R(n):
+        return (n % 10) * 1000 + (n // 10)
+    
+    for _ in range(T):
+        A, B = map(int, input().split())
+        visited = [False]*10000
+        parent = [-1]*10000        # parent[x] = x로 오기 전 숫자
+        how = ['']*10000           # how[x]   = parent[x] -> x 로 사용된 명령어
+    
+        q = deque([A])
+        visited[A] = True
+    
+        while q:
+            cur = q.popleft()
+            if cur == B:
+                break
+            for op, ch in [(D,'D'), (S,'S'), (L,'L'), (R,'R')]:
+                nxt = op(cur)
+                if not visited[nxt]:
+                    visited[nxt] = True
+                    parent[nxt] = cur
+                    how[nxt] = ch
+                    q.append(nxt)
+    
+        # 역추적: B → A 로 올라가면서 how[] 수집
+        res = []
+        x = B
+        while x != A:
+            res.append(how[x])
+            x = parent[x]
+        print(''.join(reversed(res)))
+
+pypy3으로 바꾸니까, 함수 내 연산을 문자열 연산에서 산술연산으로 바꾼 시점에서 통과되는 것을 알았다.
+그냥 python이 느려서 통과가 안되는 것 같다. 채점기록에도 pypy3만 있고 python은 한개도 없어
