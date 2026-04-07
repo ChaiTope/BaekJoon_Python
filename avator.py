@@ -1,7 +1,11 @@
-from collections import Counter
-
-N = int(input())
-A = []
-for i in range(N):
-    A.append(input())
-print(min(Counter(A).items(), key=lambda x: (-x[1], x[0]))[0])
+R = 0
+for i in range(int(input())):
+    S = []
+    for a in input():
+        if S and S[-1] == a:
+            S.pop()
+            continue
+        S.append(a)
+    if not S:
+        R += 1
+print(R)
